@@ -249,30 +249,71 @@
             
             setupTouchControls() {
                 let isRotating = false;
+                let isPanning = false;
                 let previousTouch = { x: 0, y: 0 };
+                let previousDistance = 0;
                 let rotationX = 0;
                 let rotationY = 0;
+                let currentZoom = 1;
+                let panX = 0;
+                let panY = 0;
                 
                 const canvas = this.renderer.domElement;
                 
+                // Helper functions
+                const getTouchDistance = (touch1, touch2) => {
+                    const dx = touch1.clientX - touch2.clientX;
+                    const dy = touch1.clientY - touch2.clientY;
+                    return Math.sqrt(dx * dx + dy * dy);
+                };
+                
+                const getTouchCenter = (touch1, touch2) => {
+                    return {
+                        x: (touch1.clientX + touch2.clientX) / 2,
+                        y: (touch1.clientY + touch2.clientY) / 2
+                    };
+                };
+                
+                const updateZoomSlider = (zoom) => {
+                    const zoomSlider = document.getElementById('zoomSlider');
+                    const zoomValue = document.getElementById('zoomValue');
+                    zoomSlider.value = zoom;
+                    zoomValue.textContent = zoom.toFixed(1);
+                };
+                
                 // Mouse controls
                 canvas.addEventListener('mousedown', (e) => {
-                    isRotating = true;
-                    previousTouch.x = e.clientX;
-                    previousTouch.y = e.clientY;
+                    e.preventDefault();
+                    if (e.button === 0) { // Left click - rotate
+                        isRotating = true;
+                        previousTouch.x = e.clientX;
+                        previousTouch.y = e.clientY;
+                    } else if (e.button === 2) { // Right click - pan
+                        isPanning = true;
+                        previousTouch.x = e.clientX;
+                        previousTouch.y = e.clientY;
+                    }
                 });
                 
                 canvas.addEventListener('mousemove', (e) => {
-                    if (!isRotating || !this.mesh) return;
+                    if (!this.mesh) return;
                     
                     const deltaX = e.clientX - previousTouch.x;
                     const deltaY = e.clientY - previousTouch.y;
                     
-                    rotationY += deltaX * 0.01;
-                    rotationX += deltaY * 0.01;
-                    
-                    this.mesh.rotation.x = rotationX;
-                    this.mesh.rotation.y = rotationY;
+                    if (isRotating) {
+                        rotationY += deltaX * 0.01;
+                        rotationX += deltaY * 0.01;
+                        
+                        this.mesh.rotation.x = rotationX;
+                        this.mesh.rotation.y = rotationY;
+                    } else if (isPanning) {
+                        panX += deltaX * 0.05;
+                        panY -= deltaY * 0.05;
+                        
+                        this.mesh.position.x = panX;
+                        this.mesh.position.y = panY;
+                    }
                     
                     previousTouch.x = e.clientX;
                     previousTouch.y = e.clientY;
@@ -280,21 +321,48 @@
                 
                 canvas.addEventListener('mouseup', () => {
                     isRotating = false;
+                    isPanning = false;
                 });
+                
+                // Mouse wheel zoom
+                canvas.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    if (!this.mesh) return;
+                    
+                    const zoomSpeed = 0.1;
+                    const delta = e.deltaY > 0 ? -zoomSpeed : zoomSpeed;
+                    currentZoom = Math.max(0.1, Math.min(3, currentZoom + delta));
+                    
+                    this.mesh.scale.setScalar(currentZoom);
+                    updateZoomSlider(currentZoom);
+                });
+                
+                // Disable context menu
+                canvas.addEventListener('contextmenu', (e) => e.preventDefault());
                 
                 // Touch controls
                 canvas.addEventListener('touchstart', (e) => {
                     e.preventDefault();
+                    
                     if (e.touches.length === 1) {
+                        // Single touch - rotate
                         isRotating = true;
                         previousTouch.x = e.touches[0].clientX;
                         previousTouch.y = e.touches[0].clientY;
+                    } else if (e.touches.length === 2) {
+                        // Two finger touch - zoom and pan
+                        isRotating = false;
+                        previousDistance = getTouchDistance(e.touches[0], e.touches[1]);
+                        previousTouch = getTouchCenter(e.touches[0], e.touches[1]);
                     }
                 });
                 
                 canvas.addEventListener('touchmove', (e) => {
                     e.preventDefault();
-                    if (e.touches.length === 1 && isRotating && this.mesh) {
+                    if (!this.mesh) return;
+                    
+                    if (e.touches.length === 1 && isRotating) {
+                        // Single touch - rotate
                         const deltaX = e.touches[0].clientX - previousTouch.x;
                         const deltaY = e.touches[0].clientY - previousTouch.y;
                         
@@ -306,16 +374,55 @@
                         
                         previousTouch.x = e.touches[0].clientX;
                         previousTouch.y = e.touches[0].clientY;
+                    } else if (e.touches.length === 2) {
+                        // Two finger touch - zoom and pan
+                        const currentDistance = getTouchDistance(e.touches[0], e.touches[1]);
+                        const currentCenter = getTouchCenter(e.touches[0], e.touches[1]);
+                        
+                        // Pinch zoom
+                        if (previousDistance > 0) {
+                            const zoomFactor = currentDistance / previousDistance;
+                            currentZoom = Math.max(0.1, Math.min(3, currentZoom * zoomFactor));
+                            this.mesh.scale.setScalar(currentZoom);
+                            updateZoomSlider(currentZoom);
+                        }
+                        
+                        // Two finger pan
+                        if (previousTouch.x !== 0 && previousTouch.y !== 0) {
+                            const deltaX = currentCenter.x - previousTouch.x;
+                            const deltaY = currentCenter.y - previousTouch.y;
+                            
+                            panX += deltaX * 0.05;
+                            panY -= deltaY * 0.05;
+                            
+                            this.mesh.position.x = panX;
+                            this.mesh.position.y = panY;
+                        }
+                        
+                        previousDistance = currentDistance;
+                        previousTouch = currentCenter;
                     }
                 });
                 
-                canvas.addEventListener('touchend', () => {
-                    isRotating = false;
+                canvas.addEventListener('touchend', (e) => {
+                    if (e.touches.length === 0) {
+                        isRotating = false;
+                        previousDistance = 0;
+                        previousTouch = { x: 0, y: 0 };
+                    } else if (e.touches.length === 1) {
+                        // Transition from two finger to one finger
+                        isRotating = true;
+                        previousTouch.x = e.touches[0].clientX;
+                        previousTouch.y = e.touches[0].clientY;
+                        previousDistance = 0;
+                    }
                 });
                 
-                // Prevent scrolling on canvas
-                canvas.addEventListener('touchstart', (e) => e.preventDefault());
-                canvas.addEventListener('touchmove', (e) => e.preventDefault());
+                // Update zoom slider when manually changed
+                const zoomSlider = document.getElementById('zoomSlider');
+                zoomSlider.addEventListener('input', (e) => {
+                    currentZoom = parseFloat(e.target.value);
+                });
             }
             
             setupEventListeners() {
