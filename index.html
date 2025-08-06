@@ -22,6 +22,13 @@
             line-height: 1.7;
         }
 		
+		/* For better readability, you might also want to add: */
+		p {
+			text-align: justify;
+			text-justify: inter-word; /* Better word spacing */
+			hyphens: auto; /* Enable hyphenation */
+			line-height: 1.2;
+		}
 		
 		.navbar-dark .navbar-nav .nav-link {
 			font-size: medium;
@@ -36,6 +43,7 @@
         }
         .section {
             margin-bottom: 4rem;
+			
         }
         .nav-link {
             cursor: pointer;
@@ -49,6 +57,17 @@
 			background-color: #ebd9be;
 		}
 
+		.fd-big-direction {
+			color:  #a88332;
+			text-align: center;
+			font-size: xx-large;
+		}
+		.fd-big-number {
+			color:  #a64f1c;
+			text-align: center;
+			font-size: large;
+		}		
+		
 
 		
     </style>
@@ -84,19 +103,19 @@
     <div class="container py-5">
         <header class="mb-5 text-center">
             <h1>Pieve Romanica di Santa Maria Assunta</h1>
-            <p class="lead">di Giovanni Destefanis</p>
+            <p class="lead text-center">di Giovanni Destefanis</p>
         </header>
 		
 		<div class="container-fluid p-0">
 		<img src="cover_w1280.jpg" alt="Cover" class="img-fluid rounded mx-auto d-block">
 		
 			<blockquote class="blockquote text-end">
-	<p class="mb-0">Alla cara memoria di Don Bernardino Oberto</p>
-	<p class="mb-0"></p>
-	<p class="mb-0">Alla mia preziosa famiglia.</p>
-	<p class="mb-0">Ai miei alunni di sempre, a chi mi onora della sua stima ed affetto.</p>
-	<p class="mb-0">Alla gente di Cortemilia.</p>
-	<footer class="blockquote-footer">Giovanni Destefanis<cite title="2025">2025</cite></footer>
+	<p class="mb-0 text-end">Alla cara memoria di Don Bernardino Oberto</p>
+	<p class="mb-0 text-end"></p>
+	<p class="mb-0 text-end">Alla mia preziosa famiglia.</p>
+	<p class="mb-0 text-end">Ai miei alunni di sempre, a chi mi onora della sua stima ed affetto.</p>
+	<p class="mb-0 text-end">Alla gente di Cortemilia.</p>
+	<footer class="blockquote-footer text-end">Giovanni Destefanis<cite title="2025">2025</cite></footer>
 	</blockquote>
 		
 	</div>	
@@ -267,6 +286,7 @@
         <p>Rinvenuto casualmente agli inizi degli anni 40 – almeno così riferiscono fonti orali -, durante lavori di scavo nella zona antistante la facciata della chiesa, quando tra l'altro, come accennato, venne abbattuto il pronao, il manufatto, collocato al centro della parete di sinistra rispetto all’entrata,  presenta caratteri peculiari e distintivi rispetto ad ogni altro reperto di valore archeologico presente sul territorio di Cortemilia e circostante. Di forma triangolare, largo circa 70 cm alla base e circa 80 al sommo della cuspide, è ricavato da una lastra di arenaria locale, di color grigio sabbia, spessa circa 20 cm, alla quale, essendo forse insufficiente per il progetto rappresentativo, è stata aggiunta la cuspide, in pietra dello stesso tipo. Sui lati della cuspide si impiantavano in origine due colonnine di circa 10 cm di diametro, delle quali non rimangono che le basi (un rocchio di una colonnina similare, lungo circa 25 cm, si trova nella sacrestia della chiesa e probabilmente proviene dal manufatto stesso).</p>
 <p>Sull'opera non compaiono scritte di alcun tipo che possano aiutare nella collocazione cronologica, per cui ci si deve limitare alle interpretazioni che possono provenire dalla lettura delle immagini presenti.</p>
 <img src="Picture14.jpg" class="img-fluid rounded mx-auto d-block" alt="">
+
 <p>Nel centro della sagoma triangolare è la figura della Vergine incoronata. Una corona alta e massiccia, a cuspidi arrotondate secondo uno schema carolingio o bizantino da cui discendono due fasce (infulae) con frange, lungo entrambe le spalle. -La Madonna è assisa maestosamente in trono con l’abito panneggiato attorno alle ginocchia ben divaricate, con il Bambino seduto sul ginocchio sinistro secondo il consueto schema iconologico. </p>
 <p>La postura è rigidamente frontale, lo sguardo fisso, più inespressivo che severo secondo modelli di ascendenza bizantina o addirittura paleocristiana, (quale ad esempio il "theotokòs", genitrice di Dio, alla quale sono dedicate chiese e santuari in area greco ortodossa e che è forse l'origine del toponimo "Todocco", località con santuario mariano a pochi km da Cortemilia). Una Vergine quindi, al contempo Thèotokos e Basilissa, Madre di Dio e Regina.<a class="btn btn-link" data-bs-toggle="collapse" href="#footnote8" role="button" aria-expanded="false" aria-controls="collapseExample">(8)</a>
 <div class="collapse" id="footnote8"><div class="card card-body"><p>Un indirizzo di ricerca particolarmente stimolante potrebbe essere relativo alle testimonianze bizantine nel basso Piemonte, sulla questione del "limes" ed altro. La riconquista giustinianea del VI secolo, per quanto di durata relativamente breve, può aver lasciato anche qui tracce attualmente misconosciute. Il toponimo "Todocco" trova in "Theotòkos” una delle sue letture più convincenti. La presenza di un santuario mariano, che la leggenda locale fa risalire ad un evento miracoloso (la guarigione di una pastorella sordomuta nel XVII secolo) potrebbe infatti risalire molto più indietro nel tempo.</p></div></div> Di più, l’osservazione del particolare della mano destra che “indica” Gesù, ci riporta anche all’appellativo di Odighìtria, (o Odigìtria), “colei che indica la via”. Un canone ricorrente sin dalle più antiche rappresentazioni della Vergine, che non doveva essere lei stessa l’oggetto del culto principale, ma il Bambino che siede sulle sue ginocchia.<a class="btn btn-link" data-bs-toggle="collapse" href="#footnote9" role="button" aria-expanded="false" aria-controls="collapseExample">(9)</a>
@@ -302,8 +322,10 @@
 <p>Ora, mentre il sole e la luna sembrano simboli abbastanza trasparenti per indicare ad esempio l'eternità, o la diuturnità della presenza divina, di più oscuro significato sembrano quella croce obliqua e quella stella. La croce - ma essa non soltanto, anche ad esempio la tipologia dell'ornamentazione fitomorfa -, ci potrebbero condurre a modelli decisamente arcaici, come le figurazioni barbariche, visigotiche e longobardiche che si trovano qua e là tanto nelle opere di scultura come negli evangeliarii, oppure all'arte carolingia. </p>
 
 <p>Sembra definitivamente accertato che l'opera risalga anch'essa al XIII secolo ed alla relativa fioritura artistica che si ebbe allora in Cortemilia in seguito all'insediamento minorita. L’ipotesi che per una certa lettura degli indizi ci porterebbe più indietro, addirittura ad un X, XI secolo è razionalmente da scartare. Ma quegli indizi possono, come vedremo, essere letti in altro modo. </p>
-<p>Secondo uno studio più recente, di cui riporto in appendice le indicazioni, gli astri che sovrastano il trono della Madonna potrebbero essere “letti”, da sinistra verso destra nel modo seguente. La croce caulicolata, come la rappresentazione simbolica della Terra e in particolare del Giardino dell’Eden: i quattro bracci rappresenterebbero i quattro fiumi che da quel luogo sgorgano portando le loro benefiche acque a tutto il creato: il Pison (identificato con il Gange), il Ghihon o Ghikon (col Nilo), il Tigri e l’Eufrate. I caulicoli (viticci) non sarebbero che la rappresentazione della foce dei Fiumi nell’Oceano biblico. Al di sopra la grande Luna che racchiude nella sua falce un piccolo Sole, stella con 12 punte, come le altre due, per indicare la visibilità in cielo dell’astro per tutti e dodici i mesi dell’anno, raffigurerebbe un'eclissi totale di sole, la luna che “inghiotte” il sole.</p>
-<p>Ha sicuramente un senso la lettura che è stata fatta di questo particolare: gli studi di archeo-astronomia porterebbero a collocare, per l’area di emisfero in cui si trova Cortemilia, un’eclisse totale di sole nel 1239. Lo scultore utilizza l’eclisse per datare l’opera. (Vedi Appendice - Archeoastronomia) A destra un altro astro a dodici punte sarebbe il pianeta Giove, il più luminoso di tutti nei cieli notturni e l’ultimo, a destra in basso, sempre a 12 punte ma simili a foglie o petali di un fiore, il pianeta Venere, con reminiscenze del riferimento alla dea della bellezza nel Medio Evo poi identificata con la Vergine Urania (la Venere Celeste), uno degli aspetti della verginità mariana. Una lettura forse singolare ma sostanzialmente logica e non priva di appoggi archeologici e concettuali.</p>
+<p>Secondo uno studio più recente, di cui riporto in appendice le indicazioni, gli astri che sovrastano il trono della Madonna potrebbero essere “letti”, da sinistra verso destra nel modo seguente. ❶ La croce caulicolata, come la rappresentazione simbolica della Terra e in particolare del Giardino dell’Eden: i quattro bracci rappresenterebbero i quattro fiumi che da quel luogo sgorgano portando le loro benefiche acque a tutto il creato: il Pison (identificato con il Gange), il Ghihon o Ghikon (col Nilo), il Tigri e l’Eufrate. I caulicoli (viticci) non sarebbero che la rappresentazione della foce dei Fiumi nell’Oceano biblico. Al di sopra la grande Luna ❷ che racchiude nella sua falce un piccolo Sole, stella con 12 punte, come le altre due, per indicare la visibilità in cielo dell’astro per tutti e dodici i mesi dell’anno, raffigurerebbe un'eclissi totale di sole, la luna che “inghiotte” il sole.</p>
+<img src="altar-bullets.jpg" class="img-fluid rounded mx-auto d-block" alt="">
+
+<p>Ha sicuramente un senso la lettura che è stata fatta di questo particolare: gli studi di archeo-astronomia porterebbero a collocare, per l’area di emisfero in cui si trova Cortemilia, un’eclisse totale di sole nel 1239. Lo scultore utilizza l’eclisse per datare l’opera. (Vedi Appendice - Archeoastronomia) A destra un altro astro a dodici punte sarebbe il pianeta Giove ❹, il più luminoso di tutti nei cieli notturni e l’ultimo, a destra in basso, sempre a 12 punte ma simili a foglie o petali di un fiore, il pianeta Venere ❺, con reminiscenze del riferimento alla dea della bellezza nel Medio Evo poi identificata con la Vergine Urania (la Venere Celeste), uno degli aspetti della verginità mariana. Una lettura forse singolare ma sostanzialmente logica e non priva di appoggi archeologici e concettuali.</p>
 
 <p>A proposito del carattere bizantino o arcaico-orientale della raffigurazione, possiamo suggerire, senza eccedere in immaginazione, che l’autore fosse davvero un artista, o un “lapicida”, proveniente dall’area dell’impero d’Oriente, emigrato in Europa come succedeva spesso per le più svariate ragioni (invasioni, carestie etc.). A Cortemilia quello scultore produce una raffigurazione simile a quelle che aveva in mente e che facevano parte da secoli della cultura rappresentativa delle sue terre d’origine. </p>
 <p>Sulla funzione e la collocazione del bassorilievo non è facile fare delle supposizioni. Potrebbe trattarsi di una realizzazione per conto di un committente laico o di una confraternita, collocato sull’altare laterale che si trovava in quel punto della parete, a metà circa della sua lunghezza, così come di un altro altare, speculare a questo si trovano più chiare tracce nel pavimento lungo la parete opposta. </p>
@@ -348,34 +370,46 @@
             <p>L'abside della Chiesa è, oltre al campanile romanico e alla prodigiosa nettezza della magnifica bifora della facciata, la struttura meglio conservata dell'intero edificio. Poco percepibile all'interno dove l'originale tessuto murario è stato in parte assorbito e mascherato da sopraelevazioni ed ampliamenti, l'originaria impostazione è perfettamente leggibile dall'esterno, specialmente da qualche anno a questa parte, da quando il soffocante incombere a pochi decimetri di un alto muro che sosteneva una terrazza coltivata a vigneto e la cui presenza era di gran lunga più recente della chiesa medesima è stato rimosso, è stata creata un’area di visita con illuminazione al suolo</p>
 <img src="Picture25.jpg" class="img-fluid rounded mx-auto d-block" alt="">
 <p>La parte che si ritiene risalga all'impostazione originaria è coronata da una serie di 20 archetti pensili e ciechi, ciascuno di essi ricavato da un unico blocco di pietra locale, raccordati tra loro da una piccola mensola, larga circa 20 cm, che di volta in volta reca una figura o un semplice motivo ornamentale.  La prima di questi è singolare per la raffigurazione minuziosa di un animale fantastico (drago o leone, o grifone) forse originariamente con due teste, poi cadute o scalpellate e tra le zampe una rosetta.  Altre imposte recano ora un motivo a palmetta, oppure, come qualcuno non a torto interpreta, la sommità di due ali congiunte, ora una modanatura orizzontale; due di essi mostrano una figura umana, una la testa di un orso o di un leone, un’altra quella di un vitello, tutte   ormai poco leggibili per l'erosione dell'arenaria in cui sono realizzati. </p>
-<p>Nelle lunette degli archi sono ancora individuabili tre figure, anche queste molto corrose. Nella 6a vi è l'immagine di un leone che tiene tra le zampe anteriori un oggetto tondeggiante, forse in origine una testa umana: leoni e grifoni in tale positura si vedono ad esempio nelle sculture di epoca romanica delle cattedrali di Parma e di Modena; il leone è animale carico di grandi suggestioni, ma nella cultura cristiana ed in quelle ebraica esso è spesso simbolo demoniaco, per la voracità e la ferocia: "...sicut leo circuit, quaerens quem devoret ...” libera eas de ore leonis". (foto pagina seguente).</p>
-
-			<div class="row">
+<div class="row">
 						<div class="col fd-background">
 			  <img src="lion-notrace.jpg" class="img-fluid rounded mx-auto d-block" alt="">
 			</div>
 						<div class="col">
-			  <img src="dragon-notrace.jpg" class="img-fluid rounded mx-auto d-block" alt="">
-			</div>
-									<div class="col fd-background">
 			  <img src="mermaid-notrace.jpg" class="img-fluid rounded mx-auto d-block" alt="">
 			</div>
+									<div class="col fd-background">
+			  <img src="dragon-notrace.jpg" class="img-fluid rounded mx-auto d-block" alt="">
+			</div>
 		  </div>
-			<div class="row">
+		<div class="row">
 						<div class="col fd-background">
 			  <img src="lion.jpg" class="img-fluid rounded mx-auto d-block" alt="">
 			</div>
 						<div class="col">
-			  <img src="dragon.jpg" class="img-fluid rounded mx-auto d-block" alt="">
+			  <img src="mermaid.jpg" class="img-fluid rounded mx-auto d-block" alt="">
 			</div>
 			<div class="col fd-background">
-			  <img src="mermaid.jpg" class="img-fluid rounded mx-auto d-block" alt="">
+			  <img src="dragon.jpg" class="img-fluid rounded mx-auto d-block" alt="">
+			</div>
+		  </div>
+		<div class="row">
+						<div class="col fd-background">
+			  
+			  <p class="fd-big-direction">🧭 S</p>
+			  <p class="fd-big-number">-lunetta 6-</p>
+			</div>
+						<div class="col">
+
+			  <p class="fd-big-direction">🧭 SE</p>
+			  <p class="fd-big-number">-lunetta 9-</p>
+			</div>
+			<div class="col fd-background">
+			  <p class="fd-big-direction">🧭 N</p>
+			  <p class="fd-big-number">-lunetta 19-</p>
 			</div>
 		  </div>
 
-
-
-
+<p>Nelle lunette degli archi sono ancora individuabili tre figure, anche queste molto corrose. Nella 6a vi è l'immagine di un leone che tiene tra le zampe anteriori un oggetto tondeggiante, forse in origine una testa umana: leoni e grifoni in tale positura si vedono ad esempio nelle sculture di epoca romanica delle cattedrali di Parma e di Modena; il leone è animale carico di grandi suggestioni, ma nella cultura cristiana ed in quelle ebraica esso è spesso simbolo demoniaco, per la voracità e la ferocia: "...sicut leo circuit, quaerens quem devoret ...” libera eas de ore leonis".</p>
 <p>Nella 9a lunetta resta una traccia appena rilevata della figura che ci doveva essere in origine, ma che può essere letta come quella di una Sirena, una “Melusina” che tiene con le mani le due appendici pisciformi divaricate e sollevate.<a class="btn btn-link" data-bs-toggle="collapse" href="#footnote15" role="button" aria-expanded="false" aria-controls="collapseExample">(15)</a>
 <div class="collapse" id="footnote15"><div class="card card-body"><p>La sirena con la coda bifida divaricata e retta dalle mani è di solito chiamata “Melusina” ed appartiene all’immaginario favolistico medioevale: la creatura assume sembianze umane per sedurre e addirittura farsi sposare da un giovane cavaliere, ma questi casualmente la scopre, una notte di luna seduta a pettinarsi su uno scoglio nelle sue reali fattezze, comprendendo così l’inganno. La Melusina, nella forma in cui la vediamo -appena, occorre dirlo- rappresentata da un lapicida romanico sull’abside della Pieve, è la figura principale dello stemma gentilizio della famiglia Carrara, presente in Cortemilia ed imparentata con le dinastie marchionali del paese. Lo stemma si trova raffigurato su almeno due banchi della chiesa parrocchiale di San Michele.</p></div></div>
 </p>
@@ -451,5 +485,24 @@
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+	
+	<script>
+	// Close the navbar collapse when any nav link is clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Use Bootstrap's collapse method to hide the menu
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                toggle: false
+            });
+            bsCollapse.hide();
+        });
+    });
+});
+	
+	</script>
 </body>
 </html>
