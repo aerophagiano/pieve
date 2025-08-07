@@ -53,7 +53,6 @@
         }
 
         .back-button::before {
-            content: "←";
             font-size: 16px;
         }
 
@@ -160,10 +159,10 @@
 </head>
 <body>
     <div class="viewer-container">
-        <a href="index.html" id="backButton" class="back-button">Back</a>
+        <a href="index.html" id="backButton" class="back-button">Close</a>
         
         <div class="shortcuts">
-            Press ESC to go back
+            Press ESC to close
         </div>
 
         <div id="loading" class="loading">Loading image...</div>
@@ -202,19 +201,21 @@
                 window.history.back();
             } else {
                 // Fallback - go to a default page or close tab
+				window.location.href = "index.html";
                 window.close();
             }
         }
 
-        backButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            goBack();
-        });
-
-        errorBackButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            goBack();
-        });
+		
+        // backButton.addEventListener('click', (e) => {
+        //     e.preventDefault();
+        //     goBack();
+        // });
+		// 
+        // errorBackButton.addEventListener('click', (e) => {
+        //     e.preventDefault();
+        //     goBack();
+        // });
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
