@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .viewer-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .back-button::before {
+            content: "←";
+            font-size: 16px;
+        }
+
+        .main-image {
+            max-width: 95vw;
+            max-height: 95vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .image-info {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 25px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .error h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ff4444;
+        }
+
+        .error p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .back-button {
+                top: 15px;
+                left: 15px;
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .image-info {
+                bottom: 20px;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .main-image {
+                max-width: 98vw;
+                max-height: 92vh;
+            }
+        }
+
+        /* Keyboard shortcuts info */
+        .shortcuts {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            .shortcuts {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="viewer-container">
+        <a href="#" id="backButton" class="back-button">Back</a>
+        
+        <div class="shortcuts">
+            Press ESC to go back
+        </div>
+
+        <div id="loading" class="loading">Loading image...</div>
+        
+        <div id="errorContainer" class="error" style="display: none;">
+            <h1>📷</h1>
+            <p>Unable to load image</p>
+            <a href="#" id="errorBackButton" class="back-button" style="position: relative; top: 0; left: 0;">Go Back</a>
+        </div>
+
+        <img id="mainImage" class="main-image" style="display: none;" alt="">
+        
+        <div id="imageInfo" class="image-info" style="display: none;">
+            <div id="imageName"></div>
+        </div>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const imageUrl = urlParams.get('img');
+        const imageAlt = urlParams.get('alt') || 'Image';
+        
+        // Get elements
+        const loading = document.getElementById('loading');
+        const errorContainer = document.getElementById('errorContainer');
+        const mainImage = document.getElementById('mainImage');
+        const imageInfo = document.getElementById('imageInfo');
+        const imageName = document.getElementById('imageName');
+        const backButton = document.getElementById('backButton');
+        const errorBackButton = document.getElementById('errorBackButton');
+
+        // Set up back navigation
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                // Fallback - go to a default page or close tab
+                window.close();
+            }
+        }
+
+        backButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            goBack();
+        });
+
+        errorBackButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            goBack();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                goBack();
+            }
+        });
+
+        // Load and display image
+        if (imageUrl) {
+            mainImage.onload = function() {
+                loading.style.display = 'none';
+                mainImage.style.display = 'block';
+                imageInfo.style.display = 'block';
+                imageName.textContent = imageAlt;
+                
+                // Update page title
+                document.title = `${imageAlt} - Image Viewer`;
+            };
+
+            mainImage.onerror = function() {
+                loading.style.display = 'none';
+                errorContainer.style.display = 'block';
+            };
+
+            // Start loading the image
+            mainImage.src = decodeURIComponent(imageUrl);
+            mainImage.alt = imageAlt;
+        } else {
+            // No image parameter provided
+            loading.style.display = 'none';
+            errorContainer.style.display = 'block';
+            errorContainer.querySelector('p').textContent = 'No image specified';
+        }
+
+        // Prevent right-click context menu on image
+        mainImage.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Optional: Click anywhere to go back
+        document.addEventListener('click', (e) => {
+            // Only if clicking on background, not on buttons or image
+            if (e.target === document.body || e.target.classList.contains('viewer-container')) {
+                goBack();
+            }
+        });
+    </script>
+</body>
+</html>
