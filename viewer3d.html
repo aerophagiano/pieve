@@ -59,10 +59,6 @@
             margin-bottom: 4px;
         }
         
-        .control-group input[type="range"] {
-            width: 150px;
-        }
-        
         .control-group input[type="color"] {
             width: 40px;
             height: 30px;
@@ -166,8 +162,7 @@
         <div id="controls">
             <div id="fileName"></div>
             <div class="control-group">
-                <label>Zoom: <span id="zoomValue">1.0</span></label>
-                <input type="range" id="zoomSlider" min="0.1" max="3" step="0.1" value="1">
+                <label>Zoom: <span id="zoomValue">1.0x</span></label>
             </div>
             <div class="control-group">
                 <label>Color:</label>
@@ -185,7 +180,8 @@
         </div>
         
         <div id="info">
-            <div>Touch/drag to rotate • Pinch to zoom</div>
+            <div><strong>Desktop:</strong> Left drag = rotate • Right drag = pan • Wheel = zoom</div>
+            <div><strong>Mobile:</strong> 1 finger = rotate • 2 fingers = pan & zoom</div>
             <div id="modelInfo"></div>
         </div>
     </div>
@@ -274,11 +270,9 @@
                     };
                 };
                 
-                const updateZoomSlider = (zoom) => {
-                    const zoomSlider = document.getElementById('zoomSlider');
+                const updateZoomDisplay = (zoom) => {
                     const zoomValue = document.getElementById('zoomValue');
-                    zoomSlider.value = zoom;
-                    zoomValue.textContent = zoom.toFixed(1);
+                    zoomValue.textContent = zoom.toFixed(1) + 'x';
                 };
                 
                 // Mouse controls
@@ -331,10 +325,10 @@
                     
                     const zoomSpeed = 0.1;
                     const delta = e.deltaY > 0 ? -zoomSpeed : zoomSpeed;
-                    currentZoom = Math.max(0.1, Math.min(3, currentZoom + delta));
+                    currentZoom = Math.max(0.1, currentZoom + delta);
                     
                     this.mesh.scale.setScalar(currentZoom);
-                    updateZoomSlider(currentZoom);
+                    updateZoomDisplay(currentZoom);
                 });
                 
                 // Disable context menu
@@ -382,9 +376,9 @@
                         // Pinch zoom
                         if (previousDistance > 0) {
                             const zoomFactor = currentDistance / previousDistance;
-                            currentZoom = Math.max(0.1, Math.min(3, currentZoom * zoomFactor));
+                            currentZoom = Math.max(0.1, currentZoom * zoomFactor);
                             this.mesh.scale.setScalar(currentZoom);
-                            updateZoomSlider(currentZoom);
+                            updateZoomDisplay(currentZoom);
                         }
                         
                         // Two finger pan
@@ -419,24 +413,14 @@
                 });
                 
                 // Update zoom slider when manually changed
-                const zoomSlider = document.getElementById('zoomSlider');
-                zoomSlider.addEventListener('input', (e) => {
-                    currentZoom = parseFloat(e.target.value);
-                });
+                //const zoomSlider = document.getElementById('zoomSlider');
+                //zoomSlider.addEventListener('input', (e) => {
+                //    currentZoom = parseFloat(e.target.value);
+                //});
             }
             
             setupEventListeners() {
-                const zoomSlider = document.getElementById('zoomSlider');
                 const colorPicker = document.getElementById('colorPicker');
-                const zoomValue = document.getElementById('zoomValue');
-                
-                zoomSlider.addEventListener('input', (e) => {
-                    const zoom = parseFloat(e.target.value);
-                    zoomValue.textContent = zoom.toFixed(1);
-                    if (this.mesh) {
-                        this.mesh.scale.setScalar(zoom);
-                    }
-                });
                 
                 colorPicker.addEventListener('change', (e) => {
                     if (this.mesh) {
@@ -668,14 +652,17 @@
                 // Center the model
                 this.mesh.position.sub(center);
                 
+                // Reset any manual panning
+                this.mesh.position.x = 0;
+                this.mesh.position.y = 0;
+                
                 // Scale to fit in view
                 const maxDim = Math.max(size.x, size.y, size.z);
                 const scale = 30 / maxDim;
                 this.mesh.scale.setScalar(scale);
                 
-                // Update zoom slider
-                document.getElementById('zoomSlider').value = scale;
-                document.getElementById('zoomValue').textContent = scale.toFixed(1);
+                // Update zoom display
+                document.getElementById('zoomValue').textContent = scale.toFixed(1) + 'x';
             }
             
             onWindowResize() {
