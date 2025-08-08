@@ -1,5 +1,9 @@
+  
+  console.log("✅ close-nav.js loaded");
+debugger;
+  
   document.addEventListener("DOMContentLoaded", function () {
-	debugger;
+
     var navLinks = document.querySelectorAll('.navbar-collapse .nav-link');
     var navbarCollapse = document.querySelector('.navbar-collapse');
 
