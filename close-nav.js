@@ -1,6 +1,5 @@
   
-  console.log("✅ close-nav.js loaded");
-debugger;
+
   
   document.addEventListener("DOMContentLoaded", function () {
 
