@@ -159,7 +159,9 @@
 </head>
 <body>
     <div class="viewer-container">
-        <a href="" id="backButton" class="back-button">Close</a>
+		<button id="backButton" class="back-button">Close</button>
+	
+        <!-- <a href="" id="backButton" class="back-button">Close</a> -->
         
         <div class="shortcuts">
             Press ESC to close
@@ -197,13 +199,18 @@
 
         // Set up back navigation
         function goBack() {
-            if (document.referrer) {
-                window.history.back();
-            } else {
-                // Fallback - go to a default page or close tab
-				window.location.href = "index.html";
-                window.close();
-            }
+					console.log('Back button clicked'); // Debug log
+                    
+                    // Check if there's history to go back to
+                    if (window.history.length > 1) {
+                        window.history.back();
+                    } else if (document.referrer && document.referrer !== location.href) {
+                        // If there's a referrer, go back to it
+                        window.location.href = document.referrer;
+                    } else {
+                        // Fallback - go to a default page
+                        window.location.href = "index.html";
+                    }
         }
 
 		
