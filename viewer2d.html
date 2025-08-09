@@ -159,7 +159,7 @@
 </head>
 <body>
     <div class="viewer-container">
-        <a href="index.html" id="backButton" class="back-button">Close</a>
+        <a href="" id="backButton" class="back-button">Close</a>
         
         <div class="shortcuts">
             Press ESC to close
@@ -207,15 +207,15 @@
         }
 
 		
-        // backButton.addEventListener('click', (e) => {
-        //     e.preventDefault();
-        //     goBack();
-        // });
-		// 
-        // errorBackButton.addEventListener('click', (e) => {
-        //     e.preventDefault();
-        //     goBack();
-        // });
+        backButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            goBack();
+        });
+		
+        errorBackButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            goBack();
+        });
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
